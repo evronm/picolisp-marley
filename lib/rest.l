@@ -36,7 +36,7 @@
 
 (de get_noun (Nm)
   (or 
-    (assoc Nm nouns)
+    (merge_defaults (cdr (assoc 'table *DEFAULTS)) (assoc Nm nouns))
     (quit "Noun not found" Nm)
   )
 )
