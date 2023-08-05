@@ -4,6 +4,45 @@
 (load "lib/cgi.l")
 (load "lib/sqlite.l")
 (load "lib/rest.l")
-(load "overrides.l")
-(symbols 'entities 'rst 'r 'sqlite 'util 'pico)
+#(load "overrides.l")
+(symbols 'nouns 'rst 'r 'sqlite 'util 'pico)
+
+(setq nouns '(
+  (users .
+    (      
+      (criteria . (type . ""))
+    )
+  )
+  (vendors .
+    (
+      (table . "users")
+      (criteria . (type = v))
+      (ownder_col . "id")
+      (get . ((Args) (list "get" Args "vendor")))
+      (post . ((Args) (list "post" Args "vendor")))
+      (put` . ((Args) (list "put" Args "vendor")))
+      (delete . ((Args) (list "delete" Args "vendor")))
+    )
+  )
+  (providers .
+    (
+      (table . "users")
+      (criteria . (type = p))
+      (ownder_col . "id")
+      (get . ((Args) (list "get" Args "pro")))
+      (post . ((Args) (list "post" Args "pro")))
+      (put` . ((Args) (list "put" Args "pro")))
+      (delete . ((Args) (list "delete" Args "pro")))
+    )
+  )
+  (services . 
+    (
+      (perms . 744)
+      (owner_col . vendor_id)
+    )
+  )
+))
+
+
+
 (rst~process_req)

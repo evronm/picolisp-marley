@@ -1,19 +1,52 @@
 (symbols 'rst 'r 'sqlite 'util 'pico)
 
-(local) ('+Rest)
-
-(de config (k)
-  (cdr (assoc k *CONFIG))
+(setq *DEFAULTS
+  '(
+    (db_fn . DB)
+    (table . 
+      (
+        (perms . 754)
+        (index . id)
+        (users_tbl . users)
+        (groups_tbl . groups)
+        (owner_col . user_id)
+        (group_col . group_id)
+        (get . "get")
+        (post . "post")
+        (put . "put")
+        (delete . "delete")
+      )
+    )
+  )
 )
 
-(put *Indexes T 'id)
+(de merge_defaults (Defs Lst)
+  (mapcar '((Def)
+    (or (assoc (car Def) Lst) Def)
+  ) Defs)
+)
+(de get_config (K Tbl)
+  (or 
+    (cdr (assoc K (cdr (assoc Tbl *CONFIG))) )
+    (cdr (assoc K (cdr (assoc NIL *CONFIG))) )
+    (cdr (assoc K *DEFAULTS))
+    (quit "Configuration not found" K Tbl)
+  )
+)
 
-(de get_index (Ent)
-  (or (get '*Indexes Ent) (get '*Indexes T))
+(de get_noun (Nm)
+  (or 
+    (assoc Nm nouns)
+    (quit "Noun not found" Nm)
+  )
 )
 
 (de process_req ()
+  (or 
+
+  )
 )
+
 
 (de current_user () 
   ()
