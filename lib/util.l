@@ -1,6 +1,25 @@
 (symbols 'util 'pico)
 (load "lib/plursing.l")
 
+
+(de proto Args
+  (setq Proto (car Args) Lst (cdr Args))
+  (for Pr (cdr Args)
+    (put Proto (car Pr) ())
+  )
+)
+
+(de proto_fun (Proto Fun)
+  (setq @Proto Proto)
+  (append 
+    (list 
+      (car Fun)
+      (fill '(setq Proto '@Proto))
+    )
+    (cdr Fun)
+  )
+)
+
 (de pw_hash (Pw Salt)
   (pipe (out (list 'argon2 Salt '-r) (prin Pw)) (read))
 )

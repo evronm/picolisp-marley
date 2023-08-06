@@ -11,7 +11,7 @@
         (groups_tbl . groups)
         (owner_col . user_id)
         (group_col . group_id)
-        (get . "get")
+        (get . '((Args) ) )
         (post . "post")
         (put . "put")
         (delete . "delete")
@@ -42,9 +42,7 @@
 )
 
 (de process_req ()
-  (or 
 
-  )
 )
 
 
