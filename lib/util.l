@@ -3,10 +3,14 @@
 
 
 (de proto (Args)
-  (setq Proto (car Args) Lst (cdr Args))
-  (mapcar '((Pr)
-    (cons (car Pr) (if (lst? (cdr Pr)) (proto_fun Proto (cdr Pr) ) (cdr Pr)))
-  ) Lst)
+  (setq @Proto (car Args) Lst (cdr Args))
+
+  (for Pr Lst
+    (eval (fill '(put @Proto (cons (car Pr) (if (lst? (cdr Pr)) (proto_fun @Proto (cdr Pr) ) (cdr Pr))))) )
+  )
+  #(mapcar '((Pr)
+  #  (cons (car Pr) (if (lst? (cdr Pr)) (proto_fun Proto (cdr Pr) ) (cdr Pr)))
+  #) Lst)
 )
 
 (de proto_fun (Proto Fun)
