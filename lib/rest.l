@@ -11,7 +11,7 @@
         (groups_tbl . groups)
         (owner_col . user_id)
         (group_col . group_id)
-        (get . '((Args) ) )
+        (get . ((Args) (list Proto Args 'get) ))
         (post . "post")
         (put . "put")
         (delete . "delete")

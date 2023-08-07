@@ -2,11 +2,11 @@
 (load "lib/plursing.l")
 
 
-(de proto Args
+(de proto (Args)
   (setq Proto (car Args) Lst (cdr Args))
-  (for Pr (cdr Args)
-    (put Proto (car Pr) ())
-  )
+  (mapcar '((Pr)
+    (cons (car Pr) (if (lst? (cdr Pr)) (proto_fun Proto (cdr Pr) ) (cdr Pr)))
+  ) Lst)
 )
 
 (de proto_fun (Proto Fun)
