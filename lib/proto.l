@@ -6,8 +6,7 @@
   ) Defs)
 )
 
-(de proto_fun (Proto Fun)
-  (setq @Proto Proto)
+(de proto_fun (@Proto Fun)
   (insert 2 Fun (fill '(setq Proto '@Proto)))
 )
 
@@ -23,8 +22,12 @@
 )
 
 (de proto @
-  (setq Protos (rest))
-  ()
+  (use Acc
+    (setq Acc (next))
+    (while (args) 
+      (setq Acc (merge_protos Acc (next) ))
+    )
+  )
 )
 
 (when *Dbg
