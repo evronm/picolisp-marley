@@ -1,24 +1,4 @@
-(de proto (Args)
-  (setq Proto (car Args) Lst (cdr Args))
 
-  (list
-    (list 'proto Proto)
-    (ifn (lst? Proto)
-      (mapcar '((Pr)
-        (list (car Pr) (if (lst? (cdr Pr)) (proto_fun Proto (cadr Pr) ) (cdr Pr)))
-      ) Lst)
-      (proto 
-        (append
-          (head -3 Proto)
-          (merge_protos 
-            (tail 1 Proto) 
-            (car (tail 2 Proto))
-          )
-        )
-      )
-    )
-  )
-)
 
 (de merge_protos (Defs Lst)
   (mapcar '((Def)
@@ -37,9 +17,33 @@
   )
 )
 
+(de process_funs (Args)
+  (setq Proto (car Args) Lst (cdr Args))
+
+  (list
+    (list 'proto Proto)
+    (mapcar '((Pr)
+      (list (car Pr) (if (lst? (cdr Pr)) (proto_fun Proto (cadr Pr) ) (cdr Pr)))
+    ) Lst)
+  )
+)
+
+(de proto @
+  (setq Protos (rest))
+      (proto 
+        (append
+          (head -3 Proto)
+          (merge_protos 
+            (tail 1 Proto) 
+            (car (tail 2 Proto))
+          )
+        )
+      )
+)
+
 (when *Dbg
   (setq Default 
-    '(Default 
+    '(Default .
       ((fun1  ((Arg) (list 'Default 'fun1 Arg Proto)))
       (fun2  ((Arg) (list 'Default 'fun2 Arg Proto)))
       (fun3  ((Arg) (list 'Default 'fun3 Arg Proto)))
@@ -47,7 +51,7 @@
       (fun5  ((Arg) (list 'Default 'fun5 Arg Proto)))
     ))
   )
-  (setq Top
+  (setq Top 
     '(Top .
       ((fun2  ((Arg) (list 'Top 'fun2 Arg Proto)))
       (fun5  ((Arg) (list 'Top 'fun5 Arg Proto)))
@@ -59,5 +63,4 @@
       (fun3  ((Arg) (list 'Foo 'fun3 Arg Proto)))
     )
   ))
-  (proto Foo)
 )
