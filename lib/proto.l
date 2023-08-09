@@ -8,13 +8,7 @@
 
 (de proto_fun (Proto Fun)
   (setq @Proto Proto)
-  (conc 
-    (list 
-      (car Fun)
-      (fill '(setq Proto '@Proto))
-    )
-    (cdr Fun)
-  )
+  (insert 2 Fun (fill '(setq Proto '@Proto)))
 )
 
 (de process_funs (Args)
@@ -30,15 +24,7 @@
 
 (de proto @
   (setq Protos (rest))
-      (proto 
-        (append
-          (head -3 Proto)
-          (merge_protos 
-            (tail 1 Proto) 
-            (car (tail 2 Proto))
-          )
-        )
-      )
+  ()
 )
 
 (when *Dbg
@@ -63,4 +49,8 @@
       (fun3  ((Arg) (list 'Foo 'fun3 Arg Proto)))
     )
   ))
+  ~(assert (= 
+    (process_funs Foo)
+    '((proto Foo) ((fun1 ((Arg) (setq Proto 'Foo) (list 'Foo 'fun1 Arg Proto))) (fun3 ((Arg) (setq Proto 'Foo) (list 'Foo 'fun3 Arg Proto)))))
+  ) ) 
 )
