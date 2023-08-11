@@ -1,24 +1,23 @@
 (de pf Args
   (let 
-    (@Proto (head -1 Args) 
-    @Fun (get_fun Args) 
-    @Self (car (tail 2 Args)) 
-    @Super (append '(get_fun) (head -2 Args) (tail 1 Args)))
-    (insert 2 @Fun
-      (fill 
-        '(setq 
-          Proto '@Proto 
-          Self '@Self
-          Super '@Super
-        )
-      )
+    (
+      @Proto (head -1 Args) 
+      @Fun (get_fun Args) 
+      @Self (car (tail 2 Args)) 
+      @Super (append '(get_fun) (head -2 Args) (tail 1 Args))
     )
+    (insert 2 @Fun (fill '(setq Proto '@Proto Self '@Self Super '@Super)))
   )
 )
 
 (de get_fun (Args)
   (let (Proto (head -1 Args) Fun_nm (car (tail 1 Args)))
-   (pick '((Sym) (cdr (assoc Fun_nm (val Sym)))) (reverse Proto))
+    (or 
+      (pick '((Sym) (cdr (assoc Fun_nm (val Sym)))) (reverse Proto))
+      (let (Fun (get_fun (append Proto '(Missing))) @Fun_nm Fun_nm)
+        (insert 2 Fun (fill '(setq Meth '@Fun_nm))) 
+      )
+   )
   )
 )
 
@@ -37,7 +36,7 @@
     '(
       (fun2 . ((Arg) (list 'Top 'fun2 Arg Proto)))
       (fun5 . ((Arg) (list 'Top 'fun5 Arg Proto)))
-      (Missing . ((Arg) (list 'Top 'fun5 Arg Proto)))
+      (Missing . ((Arg) (list 'Top Meth Arg Proto)))
     )
   )
   (setq Foo
@@ -49,4 +48,5 @@
   ~(assert (=  ((pf Default Foo fun1) 'asdf) '(Foo fun1 asdf (Default Foo))))
   ~(assert (=  ((pf Top Foo fun2) 'xxxx) '(Top fun2 xxxx (Top Foo))))
   ~(assert (=  ((pf Default Top Foo fun3) 'ffff) '(Foo fun3 ffff (Default Top Foo))))
+  ~(assert (=  ((pf Default Top Foo fundfg) 'ffff) '(Top fundfg ffff (Default Top Foo)))
 )
