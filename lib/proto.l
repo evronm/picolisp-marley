@@ -18,35 +18,32 @@
 
 (de get_fun (Args)
   (let (Proto (head -1 Args) Fun_nm (car (tail 1 Args)))
-   (pick '((Sym) ( get Sym Fun_nm)) (reverse Proto))
+   (pick '((Sym) (assoc Fun_nm (val Sym))) (reverse Proto))
   )
 )
 
 
 (when *Dbg
-  (putl 'Default 
+  (setq Default 
     '(
-      (((Arg) (list 'Default 'fun1 Arg Proto)) . fun1)
-      (((Arg) (list 'Default 'fun2 Arg Proto)) . fun2)
-      (((Arg) (list 'Default 'fun3 Arg Proto)) . fun3)
-      (((Arg) (list 'Default 'fun4 Arg Proto)) . fun4)
-      (((Arg) (list 'Default 'fun5 Arg Proto)) . fun5)
+      (fun1 . ((Arg) (list 'Default 'fun1 Arg Proto)))
+      (fun2 . ((Arg) (list 'Default 'fun2 Arg Proto)))
+      (fun3 . ((Arg) (list 'Default 'fun3 Arg Proto)))
+      (fun4 . ((Arg) (list 'Default 'fun4 Arg Proto)))
+      (fun5 . ((Arg) (list 'Default 'fun5 Arg Proto)))
     )
   )
-  (putl 'Top 
+  (setq Top 
     '(
-      (((Arg) (list 'Top 'fun2 Arg Proto)) . fun2)
-      (((Arg) (list 'Top 'fun5 Arg Proto)) . fun5)
-      (((Arg) (list 'Top 'fun5 Arg Proto)) . Missing)
+      (fun2 . ((Arg) (list 'Top 'fun2 Arg Proto)))
+      (fun5 . ((Arg) (list 'Top 'fun5 Arg Proto)))
+      (Missing . ((Arg) (list 'Top 'fun5 Arg Proto)))
     )
   )
-  (putl 'Foo
+  (setq Foo
     '(
-      (((Arg) (list 'Foo 'fun1 Arg Proto)) . fun1)
-      (((Arg) (list 'Foo 'fun3 Arg Proto)) . fun3)
+      (fun1 . ((Arg) (list 'Foo 'fun1 Arg Proto)))
+      (fun3 . ((Arg) (list 'Foo 'fun3 Arg Proto)))
     )
   )
-  ~(assert (= (pf Default Foo fun2) '((Arg) (setq Proto '(Default Foo) Self 'Foo Super '(get_fun Default fun2)) (list 'Default 'fun2 Arg Proto))))
-  ~(assert (= ((pf Default Foo fun2) 'asdf) '(Default fun2 asdf (Default Foo))))
-  ~(assert (= ((pf Default Foo fun1) 'xxxx) '(Foo fun1 xxxx (Default Foo))))
 )

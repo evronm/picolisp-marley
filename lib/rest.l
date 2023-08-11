@@ -1,8 +1,9 @@
+(load 'lib/cgi.l)
 (symbols 'rst 'r 'sqlite 'util 'pico)
 
-(putl *DEFAULTS
+(setq *DEFAULTS
   '(
-    (db_fn . DB)
+    (db_fn . DB))
     (table . 
       (
         (perms . 754)
