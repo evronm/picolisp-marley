@@ -4,7 +4,7 @@
     @Fun (get_fun Args) 
     @Self (car (tail 2 Args)) 
     @Super (append '(get_fun) (head -2 Args) (tail 1 Args)))
-    (insert 2 (get @Self @Fun) 
+    (insert 2 @Fun
       (fill 
         '(setq 
           Proto '@Proto 
@@ -16,7 +16,7 @@
   )
 )
 
-(de get_fun Args
+(de get_fun (Args)
   (let (Proto (head -1 Args) Fun_nm (car (tail 1 Args)))
    (pick '((Sym) ( get Sym Fun_nm)) (reverse Proto))
   )
@@ -46,7 +46,7 @@
       (((Arg) (list 'Foo 'fun3 Arg Proto)) . fun3)
     )
   )
-  ~(assert (= 
-    (pf Default Foo fun2)  
-    '((setq Proto '(Default Foo) Self 'Foo Super '(get_fun Default fun2)))))
+  ~(assert (= (pf Default Foo fun2) '((Arg) (setq Proto '(Default Foo) Self 'Foo Super '(get_fun Default fun2)) (list 'Default 'fun2 Arg Proto))))
+  ~(assert (= ((pf Default Foo fun2) 'asdf) '(Default fun2 asdf (Default Foo))))
+  ~(assert (= ((pf Default Foo fun1) 'xxxx) '(Foo fun1 xxxx (Default Foo))))
 )
