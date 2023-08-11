@@ -18,7 +18,7 @@
 
 (de get_fun (Args)
   (let (Proto (head -1 Args) Fun_nm (car (tail 1 Args)))
-   (pick '((Sym) (assoc Fun_nm (val Sym))) (reverse Proto))
+   (pick '((Sym) (cdr (assoc Fun_nm (val Sym)))) (reverse Proto))
   )
 )
 
@@ -46,4 +46,5 @@
       (fun3 . ((Arg) (list 'Foo 'fun3 Arg Proto)))
     )
   )
+  ~(assert (=  ((pf Default Foo fun1) 'asdf) '(Foo fun1 asdf (Default Foo))))
 )
