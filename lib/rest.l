@@ -1,6 +1,6 @@
 (symbols 'rst 'r 'sqlite 'util 'pico)
 
-(setq *DEFAULTS
+(putl *DEFAULTS
   '(
     (db_fn . DB)
     (table . 
