@@ -1,9 +1,9 @@
 (load 'lib/cgi.l)
-(symbols 'rst 'r 'sqlite 'util 'pico)
+(symbols 'rst 'cgi 'util 'pico)
 
 (setq *DEFAULTS
   '(
-    (db_fn . DB))
+    (db_fn . DB)
     (table . 
       (
         (perms . 754)
@@ -35,15 +35,14 @@
   )
 )
 
-(de get_noun (Nm)
-  (or 
-    (merge_defaults (cdr (assoc 'table *DEFAULTS)) (assoc Nm nouns))
-    (quit "Noun not found" Nm)
-  )
-)
 
 (de process_req ()
-
+  (!)
+  (or 
+    (setq Noun (assoc (car *Path) *Nouns))
+    (setq Noun (assoc (pluralize (car *Path)) *Nouns))
+    (quit "Not found.")
+  )
 )
 
 

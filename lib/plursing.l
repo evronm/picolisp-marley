@@ -1,6 +1,7 @@
 
-(de pluralize (S)
-  ( cond
+(de pluralize (Str)
+  (setq S (if (lst? Str) Str (chop Str)))
+  (setq Plur (cond
     ((= '(q u i z) S) '(q u i z z e s))
     ((= '(m a t r i x) S) '(m a t r i c e s))
     ((= '(v e r t e x) S) '(v e r t i c e s))
@@ -15,11 +16,13 @@
     ((= '(t e s t i s) S) '(t e s t e s))
     ((= (tail 1 S) '(s)) (append S '(e s))) 
     (T (append S '(s)))
-  )
+  ))
+  (if (lst? Str) Plur (pack Plur))
 )
 
-(de singularize (S)
-  (cond
+(de singularize (Str)
+  (setq S (if (lst? Str) Str (chop Str)))
+  (setq Sing (cond
     ((= '(q u i z z e s) S) '(q u i z))
     ((= '(m a t r i c e s) S) '(m a t r i x))
     ((= '(v e r t i c e s) S) '(v e r t e x))
@@ -27,7 +30,8 @@
     ((= '(x e s) (tail 3 S)) (head -2 S))
     ((member S '((t o m a t o e s) (p o t a t o e s) (h e r o e s) (e c h o e s) (v e t o e s))) (head -2 S))
     (T (head -1 S))
-  )
+  ))
+  (if (lst? Str) Sing (pack Sing))
 )
 
 (when *Dbg

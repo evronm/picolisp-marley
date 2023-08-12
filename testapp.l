@@ -1,13 +1,13 @@
 
 (load "config.l")
 (load "lib/util.l")
-(load "lib/cgi.l")
-(load "lib/sqlite.l")
+#(load "lib/sqlite.l")
 (load "lib/rest.l")
 #(load "overrides.l")
-(symbols 'nouns 'rst 'r 'sqlite 'util 'pico)
+#(symbols 'nouns 'rst 'cgi 'sqlite 'util 'pico)
+(symbols 'rst 'cgi 'util 'pico)
 
-(setq nouns '(
+(setq *Nouns '(
   (users .
     (      
       (criteria . (type . ""))
@@ -43,6 +43,4 @@
   )
 ))
 
-
-
-(rst~process_req)
+(process_req)
