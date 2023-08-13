@@ -21,30 +21,18 @@
   )
 )
 
-(de merge_defaults (Defs Lst)
-  (mapcar '((Def)
-    (or (assoc (car Def) Lst) Def)
-  ) Defs)
-)
-(de get_config (K Tbl)
-  (or 
-    (cdr (assoc K (cdr (assoc Tbl *CONFIG))) )
-    (cdr (assoc K (cdr (assoc NIL *CONFIG))) )
-    (cdr (assoc K *DEFAULTS))
-    (quit "Configuration not found" K Tbl)
-  )
-)
-
-
 (de process_req ()
-  (!)
   (or 
-    (setq Noun (assoc (car *Path) *Nouns))
-    (setq Noun (assoc (pluralize (car *Path)) *Nouns))
+    (intern (car *Path) "things")
     (quit "Not found.")
   )
+  (eval (list 'pf (any (car *Path)) (any *Verb)))
 )
 
+(de authn (Un Pw)
+)
+
+(de Authz (Un Verb Noun))
 
 (de current_user () 
   ()

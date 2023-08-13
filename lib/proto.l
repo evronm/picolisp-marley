@@ -22,7 +22,7 @@
 )
 
 
-(when *Dbg
+#{(when *Dbg
   (setq Default 
     '(
       (fun1 . ((Arg) (list 'Default 'fun1 Arg Proto)))
@@ -48,5 +48,5 @@
   ~(assert (=  ((pf Default Foo fun1) 'asdf) '(Foo fun1 asdf (Default Foo))))
   ~(assert (=  ((pf Top Foo fun2) 'xxxx) '(Top fun2 xxxx (Top Foo))))
   ~(assert (=  ((pf Default Top Foo fun3) 'ffff) '(Foo fun3 ffff (Default Top Foo))))
-  ~(assert (=  ((pf Default Top Foo fundfg) 'ffff) '(Top fundfg ffff (Default Top Foo)))
-)
+  ~(assert (=  ((pf Default Top Foo fundfg) 'ffff) '(Top fundfg ffff (Default Top Foo))))
+)}#
