@@ -26,7 +26,7 @@
     (intern (car *Path) "things")
     (quit "Not found.")
   )
-  (eval (list 'pf (any (car *Path)) (any *Verb)))
+  ((eval (list 'pf (any (car *Path)) (any *Verb))) (cdr *Path))
 )
 
 (de authn (Un Pw)

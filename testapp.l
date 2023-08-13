@@ -7,8 +7,8 @@
 (symbols 'things 'rst 'cgi 'sqlite 'util 'pico)
 
 (setq users 
-  (      
-    '(criteria . (type . ""))
+  '(      
+    (criteria . (type . ""))
   )
 )
 (setq vendors 
