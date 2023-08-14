@@ -23,10 +23,11 @@
 
 (de process_req ()
   (or 
-    (intern (car *Path) "things")
+    (setq Thing (assoc (car *Path) things) )
     (quit "Not found.")
   )
-  ((eval (list 'pf (any (car *Path)) (any *Verb))) (cdr *Path))
+  (!)
+  ((pf (list Thing) *Verb) (car *Path))
 )
 
 (de authn (Un Pw)
