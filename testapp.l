@@ -19,7 +19,6 @@
         (table . "users")
         (criteria . (type = v))
         (ownder_col . "id")
-        (get . ((Args) (list "get" Args "vendor")))
         (post . ((Args) (list "post" Args "vendor")))
         (put` . ((Args) (list "put" Args "vendor")))
         (delete . ((Args) (list "delete" Args "vendor")))

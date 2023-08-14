@@ -6,7 +6,11 @@
       @Self (car (tail 1 Proto)) 
       @Super (append '(get_fun) (head -1 Proto) (tail 1 Args))
     )
-    (insert 2 @Fun (fill '(setq Proto '@Proto Self '@Self Super '@Super)))
+    
+    (if (lst? @Fun)
+      (insert 2 @Fun (fill '(setq Proto '@Proto Self '@Self Super '@Super)))
+      @Fun
+    )
   )
 )
 
