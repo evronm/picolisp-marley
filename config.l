@@ -4,7 +4,7 @@
     (db_fn . DB)
     (thing . 
       (
-        (table . (() (! any (car Self))))
+        (table . (() (any (car Self))))
         (perms . 754)
         (index . id)
         (users_tbl . users)
