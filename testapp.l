@@ -4,7 +4,7 @@
 (load "lib/util.l")
 (load "lib/sqlite.l")
 (load "lib/rest.l")
-(symbols 'rst 'cgi 'sqlite 'util 'pico)
+(symbols 'rst  'sqlite 'util 'pico)
 
 
 (setq things
@@ -45,4 +45,4 @@
   )
 )
 
-(process_req)
+(serv~start authn process_req) 

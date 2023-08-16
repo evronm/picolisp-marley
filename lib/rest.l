@@ -1,23 +1,23 @@
-(load 'lib/cgi.l)
-(symbols 'rst 'cgi 'util 'pico)
-
-
-(de process_req ()
-  (or 
-    (setq Thing (assoc (car *Path) things) )
-    (quit "Not found.")
-  )
-  ((pf (list (assoc 'thing *DEFAULTS) Thing) *Verb) (car *Path))
-)
+#(load 'lib/cgi.l)
+(load 'lib/server.l)
+(symbols 'rst 'serv 'util 'pico)
 
 (de authn (Un Pw)
+  (prinl Un Pw)
+  T
 )
 
-(de Authz (Un Verb Noun))
-
-(de current_user () 
-  ()
+(de process_req (Verb Path Get Post User)
+  (or 
+    (setq Thing (assoc (car Path) things) )
+    (quit "Not found.")
+  )
+  ((pf (list (assoc 'thing *DEFAULTS) Thing) Verb) (car Path))
 )
+
+
+(de Authz (Un Verb Path))
+
 
 
 
