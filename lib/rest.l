@@ -7,12 +7,13 @@
   T
 )
 
-(de process_req (Verb Path Get Post User)
-  (or 
-    (setq Thing (assoc (car Path) things) )
-    (quit "Not found.")
-  )
-  ((pf (list (assoc 'thing *DEFAULTS) Thing) Verb) (car Path))
+(de process_req (Verb Path Qs Post User)
+  (respond 200 (pack "<pre>\nVerb: " Verb "\nPath: " Path "\nQs:" Qs "\nPost" Post "\nUser:" User "</pre>"))
+  #(or 
+  #  (setq Thing (assoc (car Path) things) )
+  #  (quit "Not found.")
+  #)
+  #((pf (list (assoc 'thing *DEFAULTS) Thing) Verb) (car Path))
 )
 
 
