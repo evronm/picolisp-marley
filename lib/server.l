@@ -1,3 +1,5 @@
+(load "lib/util.l")
+(symbols 'util 'pico)
 
 (setq *Port 4200)
 (setq P (port *Port))
@@ -22,7 +24,6 @@
                      D
                      (link
                         (char (| (>> -6 (& C 3)) D)) ) ) ) ) ) ) ) )
-(!)
 
 (de respond (Stat Body)
   (case Stat
@@ -30,10 +31,26 @@
     (401 (out *Sock (prinl "HTTP/1.1 401 Unauthorized\n" "WWW-Authenticate: Basic realm=\"Please Log In\"\n")))
   )
 )
+
+(de authn (Un Pw)
+  (prinl Un Pw)
+  T
+)
+
 (loop
   (setq *Sock (listen P))
-  (setq Headers (make (while (in *Sock (line T)) (link @))))
-  (respond 200 (pack "<pre>" (mapcar '((H) (list H "\n")) Headers) "</pre>"))
+  (setq Req (make (while (in *Sock (line T)) (link @))))
+  (setq Verb (pack (car (sc (car Req) " "))))
+  (setq Headers (mapcar '((H) (let (F (sc H ":")) (cons (pack (car F)) (pack (cdr F))))) (cdr Req)))
+  (if (setq Unpw (pack (tail 1 (sc (cdr (assoc "Authorization" Headers)) " "))))
+    (if (authn (mapcar 'pack (sc (decode64 Unpw) ":")))
+      (respond 200 (pack "<pre>" (mapcar '((H) (list H "\n")) Headers) "</pre>"))
+      (respond 401)
+    )
+    (respond 401)
+    
+  )
+  
   
   (close *Sock) 
 )
