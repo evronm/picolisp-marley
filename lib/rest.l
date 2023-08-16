@@ -8,7 +8,7 @@
 )
 
 (de process_req (Verb Path Qs Post User)
-  (respond 200 (pack "<pre>\nVerb: " Verb "\nPath: " Path "\nQs:" Qs "\nPost" Post "\nUser:" User "</pre>"))
+  (respond 200 (pack "<pre>\nVerb: " Verb "\nPath: " Path "\nQs:" Qs "\nPost: " Post "\nUser:" User "</pre>"))
   #(or 
   #  (setq Thing (assoc (car Path) things) )
   #  (quit "Not found.")

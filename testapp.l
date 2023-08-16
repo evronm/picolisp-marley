@@ -4,7 +4,7 @@
 (load "lib/util.l")
 (load "lib/sqlite.l")
 (load "lib/rest.l")
-(symbols 'rst  'sqlite 'util 'pico)
+(symbols 'rst  'sqlite 'serv 'util 'pico)
 
 
 (setq things
