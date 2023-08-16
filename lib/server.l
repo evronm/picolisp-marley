@@ -42,6 +42,11 @@
   (setq Req (make (while (in *Sock (line T)) (link @))))
   (setq Verb (pack (car (sc (car Req) " "))))
   (setq Headers (mapcar '((H) (let (F (sc H ":")) (cons (pack (car F)) (pack (cdr F))))) (cdr Req)))
+  (when (setq Len (format (cdr (assoc "Content-Length" Headers))))
+    (setq Rawpost (in *Sock (make (do (- Len 1) (link (char))))))
+    (prinl Rawpost)
+  )
+
   (if (setq Unpw (pack (tail 1 (sc (cdr (assoc "Authorization" Headers)) " "))))
     (if (authn (mapcar 'pack (sc (decode64 Unpw) ":")))
       (respond 200 (pack "<pre>" (mapcar '((H) (list H "\n")) Headers) "</pre>"))
