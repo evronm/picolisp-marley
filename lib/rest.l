@@ -9,7 +9,6 @@
 
 (de process_req (Verb Path Qs Post User)
   (or 
-#    (setq Thing (assoc (car Path) things) )
     (respond 200 ((pf (list (assoc 'thing *DEFAULTS) (assoc (car Path) things)) Verb) (cdr Path)))
     (respond 404)
   )

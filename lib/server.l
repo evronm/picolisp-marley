@@ -49,7 +49,7 @@
   (case Stat
     (200 (out *Sock (prinl "HTTP/1.1 200 OK\n" "Server: Marley\n" "Content-Type: text/html; charset=UTF-8\n\n" "<!doctype html>\n" Body)))
     (401 (out *Sock (prinl "HTTP/1.1 401 Unauthorized\n" "WWW-Authenticate: Basic realm=\"Please Log In\"\n")))
-    (404 (out *Sock (prinl "HTTP/1.1 404 Not Found\n" "WWW-Authenticate: Basic realm=\"Please Log In\"\n")))
+    (404 (out *Sock (prinl "HTTP/1.1 404 Not Found\n" )))
   )
 )
 
