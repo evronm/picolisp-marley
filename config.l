@@ -4,7 +4,8 @@
     (db_fn . DB)
     (thing . 
       (
-        (table . (() (any (car Self))))
+        (table . ((Arg) (any (car Self))))
+        (columns . (() (prinl 'columns)))
         (perms . 754)
         (index . id)
         (users_tbl . users)

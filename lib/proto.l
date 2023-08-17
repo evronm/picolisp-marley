@@ -7,7 +7,6 @@
       @Super (append '(get_fun) (head -1 Proto) (tail 1 Args))
     )
     
-  (!)
     (if (lst? @Fun)
       (insert 2 @Fun (fill '(setq Proto '@Proto Self '@Self Super '@Super)))
       @Fun

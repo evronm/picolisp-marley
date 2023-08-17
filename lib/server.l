@@ -38,7 +38,6 @@
 )
 
 (de parse_qs (Qs)
-      (!)
   (mapcar '((Pr) 
     (let  (Kv (split Pr "="))
       (cons (url_dec (car Kv)) (url_dec (cdr Kv))) 
@@ -50,6 +49,7 @@
   (case Stat
     (200 (out *Sock (prinl "HTTP/1.1 200 OK\n" "Server: Marley\n" "Content-Type: text/html; charset=UTF-8\n\n" "<!doctype html>\n" Body)))
     (401 (out *Sock (prinl "HTTP/1.1 401 Unauthorized\n" "WWW-Authenticate: Basic realm=\"Please Log In\"\n")))
+    (404 (out *Sock (prinl "HTTP/1.1 404 Not Found\n" "WWW-Authenticate: Basic realm=\"Please Log In\"\n")))
   )
 )
 
@@ -59,14 +59,14 @@
     (setq *Sock (listen P))
     (setq Req (make (while (in *Sock (line T)) (link @))))
     (let (Vp (sc (car Req) " "))
-      (setq Verb (pack (car Vp)))
+      (setq Verb (lowc (pack (car Vp))))
       (let Pq (split (cadr Vp) "?")
-        (setq Path (mapcar 'pack (split (car Pq "/"))))
+        (setq Path (mapcar 'pack (split (cdar Pq "/"))))
         (setq Qs (parse_qs (cdr Pq)))
       )
     )
     (setq Headers (mapcar '((H) (let (F (sc H ":")) (cons (pack (car F)) (pack (cdr F))))) (cdr Req)))
-    (when (setq Len (format (cdr (assoc "Content-Length" Headers))))
+    ( when (setq Len (format (cdr (assoc "Content-Length" Headers))))
       (setq Post (parse_qs (in *Sock (make (do (- Len 1) (link (char)))))))
     )
 
@@ -78,6 +78,6 @@
       (respond 401)
       
     )
-    (close *Sock) 
+    ( close *Sock) 
   )
 )
