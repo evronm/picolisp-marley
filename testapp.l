@@ -1,8 +1,8 @@
 
-(load "config.l")
+(load "lib/sqlite.l")
 (load "lib/proto.l")
 (load "lib/util.l")
-(load "lib/sqlite.l")
+(load "config.l")
 (load "lib/rest.l")
 (symbols 'rst  'sqlite 'serv 'util 'pico)
 
@@ -45,4 +45,4 @@
   )
 )
 
-(start authn process_req) 
+#(start authn process_req) 
