@@ -70,7 +70,7 @@
       (setq Post (parse_qs (in *Sock (make (do (- Len 1) (link (char)))))))
     )
 
-    (if (member Path (conf 'no_authn Verb))
+    (! if (member Path (conf 'no_authn Verb))
       (Processor Verb Path Qs Post User)
       (if (setq Unpw (pack (tail 1 (sc (cdr (assoc "Authorization" Headers)) " "))))
         (if (Authenticator (mapcar 'pack (sc (decode64 Unpw) ":")))
@@ -78,7 +78,6 @@
           (respond 401)
         )
         (respond 401)
-        
       )
     )
     ( close *Sock) 

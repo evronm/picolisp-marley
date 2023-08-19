@@ -45,4 +45,6 @@
   )
 )
 
-(start authn process_req) 
+(de go ()
+  (start authn process_req) 
+)
