@@ -2,18 +2,18 @@
 (load 'lib/server.l)
 (symbols 'rst 'serv 'sqlite 'util 'pico)
 
-(de conf Args
-  (if (= 1 (length Args))
-    (assoc (cdar Args) *DEFAULTS)
-    (assoc (cdar Args) (eval (append '(conf) (cdr Args))))
+(de conf (Lst)
+  (if (= 1 (length Lst))
+    (assoc (car Lst) *DEFAULTS)
+    (assoc (car Lst) (conf (cdr Lst)))
   )
 )
 
-(de confv Args
-  (cdr (eval (append '(conf) Args)))
+(de confv (Lst)
+  (cdr (conf Lst))
 )
 
-(setq pico~*SQL (get_db (confv 'db_fn)))
+(setq pico~*SQL (get_db (confv '(db_fn))))
 (finish (sqlite3_close *SQL))
 
 (de authn (Un Pw)
