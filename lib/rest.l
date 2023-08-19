@@ -2,12 +2,15 @@
 (load 'lib/server.l)
 (symbols 'rst 'serv 'sqlite 'util 'pico)
 
-(de conf (K)
-  (assoc K *DEFAULTS)
+(de conf @
+  (if (= 1 (length (rest)))
+    (assoc (car (rest)) *DEFAULTS)
+    (assoc (next) (conf (rest)))
+  )
 )
 
-(de confv (K)
-  (cdr (conf K))
+(de confv @
+  (cdr (conf (car (rest))))
 )
 
 (setq pico~*SQL (get_db (confv 'db_fn)))
@@ -19,8 +22,10 @@
 )
 
 (de process_req (Verb Path Qs Post User)
+  (if (= NIL Path)
+  )
   (or 
-    (respond 200 ((pf (list (conf 'thing) (assoc (car Path) things)) Verb) (cdr Path)))
+    (! respond 200 ((pf (list (conf 'thing) (assoc (car Path) things)) Verb) (cdr Path)))
     (respond 404)
   )
   

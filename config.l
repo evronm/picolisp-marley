@@ -2,6 +2,12 @@
 (setq *DEFAULTS
   '(
     (db_fn . DB)
+    (no_authn . 
+      (
+        (get . ((user new) (NIL)))
+        (post . ((user)))
+      )
+    )
     (thing . 
       (
         (table . (() (any (car Self))))
