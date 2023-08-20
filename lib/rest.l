@@ -25,20 +25,20 @@
 )
 
 (de process_req (Verb Path Qs Post User)
-  (default Path '(index.htmx))
+  (default Path (conf '(default_path)))
   (or 
     (and 
       (setq Fn (car Path))
       (match (append '(@foo) '(.) '(@ext)) (chop Fn))
       (if  (member (pack @ext) '(html htmx css js png gif))
         (if (info (pack "static/" Fn)) 
-          (respond 200 (in (append '(echo) (pack "static/" Fn )) (till)))
+          (respond 200 (in (append '(echo) (pack (conf '(static_dir)) Fn )) (till)))
           (respond 404)
         )
         (respond 403)
       )
     )
-    (respond 200 (! (pf (list (conf '(thing)) (assoc (car Path) things)) Verb) (cdr Path)))
+    (respond 200 ((pf (list (conf '(thing)) (assoc (car Path) things)) Verb) (cdr Path)))
     (respond 404)
   )
   
