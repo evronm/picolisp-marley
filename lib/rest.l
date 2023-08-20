@@ -25,14 +25,14 @@
 )
 
 (de process_req (Verb Path Qs Post User)
-  (default Path (conf '(default_path)))
+  (default Path (confv '(default_path)))
   (or 
     (and 
       (setq Fn (car Path))
       (match (append '(@foo) '(.) '(@ext)) (chop Fn))
       (if  (member (pack @ext) '(html htmx css js png gif))
-        (if (info (pack "static/" Fn)) 
-          (respond 200 (in (append '(echo) (pack (conf '(static_dir)) Fn )) (till)))
+        (if ( info (pack (confv '(static_dir)) Fn)) 
+          (! respond 200 (in (pack (confv '(static_dir)) Fn ) (till)))
           (respond 404)
         )
         (respond 403)
