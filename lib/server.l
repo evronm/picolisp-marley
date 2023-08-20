@@ -49,6 +49,7 @@
   (case Stat
     (200 (out *Sock (prinl "HTTP/1.1 200 OK\n" "Server: Marley\n" "Content-Type: text/html; charset=UTF-8\n\n" "<!doctype html>\n" Body)))
     (401 (out *Sock (prinl "HTTP/1.1 401 Unauthorized\n" "WWW-Authenticate: Basic realm=\"Please Log In\"\n")))
+    (403 (out *Sock (prinl "HTTP/1.1 403 Forbidden\n" )))
     (404 (out *Sock (prinl "HTTP/1.1 404 Not Found\n" )))
   )
 )
@@ -70,7 +71,7 @@
       (setq Post (parse_qs (in *Sock (make (do (- Len 1) (link (char)))))))
     )
 
-    (! if (member Path (conf (append (list Verb) '(no_authn))))
+    (if (or (= NIL Path ) (member Path (conf (append (list Verb) '(no_authn)))))
       (Processor Verb Path Qs Post User)
       (if (setq Unpw (pack (tail 1 (sc (cdr (assoc "Authorization" Headers)) " "))))
         (if (Authenticator (mapcar 'pack (sc (decode64 Unpw) ":")))

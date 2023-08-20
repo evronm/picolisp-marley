@@ -4,7 +4,7 @@
     (db_fn . DB)
     (no_authn . 
       (
-        (get . ((user new) (NIL)))
+        (get . ((user new) ""))
         (post . ((user)))
       )
     )
