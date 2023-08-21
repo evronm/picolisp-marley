@@ -49,5 +49,3 @@
   (start authn process_req) 
 )
 
-(load T)
-(bye)

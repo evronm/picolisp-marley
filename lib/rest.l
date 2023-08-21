@@ -12,6 +12,9 @@
 (de confv (Lst)
   (cdr (conf Lst))
 )
+(de get_default Args
+  (append '(get) *DEFAULTS Args)
+)
 
 (setq pico~*SQL (get_db (confv '(db_fn))))
 (finish (sqlite3_close *SQL))
@@ -32,13 +35,14 @@
       (match (append '(@foo) '(.) '(@ext)) (chop Fn))
       (if  (member (pack @ext) '(html htmx css js png gif))
         (if ( info (pack (confv '(static_dir)) Fn)) 
-          (! respond 200 (in (pack (confv '(static_dir)) Fn ) (till)))
+          (respond 200 (in (pack (confv '(static_dir)) Fn ) (till)))
           (respond 404)
         )
         (respond 403)
       )
     )
-    (respond 200 ((pf (list (conf '(thing)) (assoc (car Path) things)) Verb) (cdr Path)))
+    #(! respond 200 ((pf (conf '(thing)) (assoc (car Path) things) Verb) (cdr Path)))
+    (! pf (*DEFAULTS 'thing) (things (intern (car Path))) (intern Verb))
     (respond 404)
   )
   

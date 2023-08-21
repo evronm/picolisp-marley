@@ -16,6 +16,7 @@
         (columns . (() (get_col_names ((pf Proto 'list_sql)))))
         (list_sql . (() (pack "select * from " ((pf Proto 'table)) ";")))
         (list . ((Params) (sqlite~q pico~*SQL ((pf Proto 'list_sql)))))
+        (new . (() (get_col_defs (*Sql (conf 'table 'Self)))))
         (perms . 754)
         (index . id)
         (users_tbl . users)
