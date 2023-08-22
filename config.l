@@ -12,11 +12,11 @@
     )
     (thing . 
       (
-        (table . (() (any (car Self))))
+        (table . (() ( any ((cadr Self)))))
         (columns . (() (get_col_names ((pf Proto 'list_sql)))))
         (list_sql . (() (pack "select * from " ((pf Proto 'table)) ";")))
         (list . ((Params) (sqlite~q pico~*SQL ((pf Proto 'list_sql)))))
-        (new . (() (! get_col_defs (*SQL (conf 'table 'Self)))))
+        (new . (() (! get_col_defs *SQL ((pf (*DEFAULTS 'thing) (Self)  'table)))))
         (perms . 754)
         (index . id)
         (users_tbl . users)

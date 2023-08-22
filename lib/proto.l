@@ -1,16 +1,25 @@
 
 (de pf Args
   (let (
-    @Proto (head -1 Args)
-    @Fun (pick '((P)(eval ( append '(get) P (list (last Args) )  ) ) ) (reverse @Proto))
-    @Self ( last @Proto) )
+    Proto (head -1 Args)
+    Self ( last @Proto) ) 
+
+    (setq @Proto 
+      (mapcar '((P)(if (= 1 (length P)) (apply 'car P) P)) Proto) )
+
+    (setq @Self (last @Proto))
+    
+    (setq @Fun (pick '((P)(eval ( append '(get) P (list (last Args) )  ) ) ) (reverse @Proto)))
+      
 
     (when (> (length @Proto) 1)
       (setq @Super (append '(pf) (head -1 @Proto) (list (last Args)) ) ) ) #(last Args) is a (quote . fun) cons pair
 
     (if (pair @Fun)
       (insert 2 @Fun (fill '(setq Proto '@Proto Self '@Self Super '@Super) ) )
-      @Fun  ) ) )
+      @Fun  ) ) ) 
+
+(de pfe @ (pf (rest)))
 
 (when *Dbg
   (setq things '(
@@ -33,3 +42,4 @@
         (fun4 . ((Arg) ((eval Super) Arg))))) ) )   
   (test '(Default fun4 asdf ((things 'Default))) ((pf (things 'Default) (things 'Foo) 'fun4 ) 'asdf) )
   (test 'TV1 (pf (things 'Default) (things 'Top) 'val1) ) )
+
