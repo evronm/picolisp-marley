@@ -2,7 +2,7 @@
 (de pf Args
   (let (
     @Proto (head -1 Args)
-    @Fun (eval (pick '((P)( append '(get) P (list (last Args) )  ) ) (reverse @Proto)))
+    @Fun (pick '((P)(eval ( append '(get) P (list (last Args) )  ) ) ) (reverse @Proto))
     @Self ( last @Proto) )
 
     (when (> (length @Proto) 1)

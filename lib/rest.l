@@ -41,8 +41,7 @@
         (respond 403)
       )
     )
-    #(! respond 200 ((pf (conf '(thing)) (assoc (car Path) things) Verb) (cdr Path)))
-    (! pf (*DEFAULTS 'thing) (things (intern (car Path))) (intern Verb))
+    (respond 200 ( pf (*DEFAULTS 'thing) (things (intern (car Path))) (intern Verb)))
     (respond 404)
   )
   
