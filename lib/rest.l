@@ -12,9 +12,6 @@
 (de confv (Lst)
   (cdr (conf Lst))
 )
-(de get_default Args
-  (append '(get) *DEFAULTS Args)
-)
 
 (setq pico~*SQL (get_db (confv '(db_fn))))
 (finish (sqlite3_close *SQL))
@@ -41,7 +38,7 @@
         (respond 403)
       )
     )
-    (respond 200 ( pf (*DEFAULTS 'thing) (things (intern (car Path))) (intern Verb)))
+    (respond 200 (! (pf (*DEFAULTS 'thing) (things (intern (car Path))) (intern Verb) ) (cdr Path)) )
     (respond 404)
   )
   
