@@ -38,7 +38,7 @@
         (respond 403)
       )
     )
-    (respond 200 (! (pf (*DEFAULTS 'thing) (things (intern (car Path))) (intern Verb) ) (cdr Path)) )
+    (respond 200 ((pf (*DEFAULTS 'thing) (things (intern (car Path))) (intern Verb) ) (cdr Path)) )
     (respond 404)
   )
   

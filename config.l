@@ -26,7 +26,7 @@
         (get . ((Args) 
            ( case (car Args)
             (NIL ((pf Proto 'list)))
-            ("new" ( eval (append '(pf) Proto '('new))))
+            ( "new" (( eval (append '(pf) Proto '('new)))))
            )
         ))
         (post . "post")
