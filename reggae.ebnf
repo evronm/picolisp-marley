@@ -1,14 +1,25 @@
 
 
-reggae ::= '[' message (',' message)* ']'
+reggae ::= message | ('[' message (',' message)* ']')
 
-message ::= '[' msg_type ',' msg_format ',' msg_content ']'
+message ::= '[' (('msg' ',' title ',' msg_content ) |
+  ( ('url' | 'urls')  ',' '[' url_spec ( ',' url_spec)* ']' ) |
+  (('row' | 'rows') ',' row_spec ',' '[' row_values (',' row_values)* ']' ) |
+  (('error' | 'errors') ',' '[' err_spec (',' err_spec)* ']' )) ']'
 
-msg_type ::= 'link' | 'links' | 'row' | 'rows' | 'err' | 'msg'
+title ::= string_value
 
-msg_format ::= '""' | '[' col_spec (',' col_spec)* ']'
+msg_content ::= string_value 
 
-msg_content ::= string_value | values | '[' values (',' values)* ']'
+url_spec ::= '[' url ',' title ',' desc ']'
+
+desc ::= text_value
+
+
+
+
+
+row_format ::= '""' | '[' col_spec (',' col_spec)* ']'
 
 col_spec ::= '[' name ',' type ',' restrictions ']'
 
