@@ -17,20 +17,24 @@ desc ::= text_value
 
 
 
-
-
-row_format ::= '""' | '[' col_spec (',' col_spec)* ']'
+row_spec ::= '""' | '[' col_spec (',' col_spec)* ']'
 
 col_spec ::= '[' name ',' type ',' restrictions ']'
 
 name ::= string_value
 
-type ::= "text" | "number" | "datetime" | "bool" | "rows"
+type ::= "text" | "int" | "fixed" | "email" | "password" | "date" | "time" | "datetime" | "bool" | "rows"
 
 restrictions ::= '[' restriction (',' restriction) ']'
 
-restriction ::= "ro" | "required" | range | permitted_values | pattern
+restriction ::= "ro" | "required" | min | max | permitted_values | pattern
 
+min ::= '[' 'min' ',' min_value ']'
 
+max ::= '[' 'max' ',' max_value ']'
+
+permitted_values ::= '[' 'values' ',' value (',' value)* ']'
+
+pattern ::= regex_value
 
 
