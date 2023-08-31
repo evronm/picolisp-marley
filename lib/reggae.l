@@ -1,24 +1,22 @@
+(load '@lib/json.l)
 (de reggae @
-  (make 
-    (chain "[")
-    (while (chain (next)))
-    (chain "]") ) )
+  (glue "," (mapcar '((Arg) (packJson Arg))  (rest)) ) )
 
-(de resource (Ty Props . @)
-  (append '("[" ) (list Ty) '(",") (props Props) '(",") (when (car (rest)) (mapcar 'resource (rest))) '("]")) )
+(de mesg (Titl Msg)
+  (list "msg" Titl Msg))
 
-(de props @
-  (list "{" (glue "," (mapcar '((Kv) (list (car Kv) ":" "\"" (cdr Kv) "\"")) (car (rest)))) "}"))
-
-(de lnk (Title Desc Url . @)
-  (resource 'link (list (cons 'title Title) (cons 'description Desc) (cons 'url Url)) (rest))) 
-
-
-(de instance (Nm Url New? Search? Schema Actions . @)
-  (resource 'instance (list (cons 'name Nm) (cons 'url Url) (cons 'new_rec New?) (cons 'search Search?) (cons 'actions Actions)))
-
+(de url (Url Titl Desc)
+  (list "url" Url Titl Desc)
 )
 
+
+
+
+
+
+
 (when *Dbg
-  (test "[link,{title:\"foo\",description:\"bar\",url:\"http://example.com\"},]", (pack (lnk 'foo 'bar 'http://example.com)))
+
+  (test "[\"msg\", \"asdf\", \"zxcv zxcv\"]", (reggae (mesg "asdf" "zxcv zxcv")))
+
 )

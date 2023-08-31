@@ -3,25 +3,31 @@
 reggae ::= message | ('[' message (',' message)* ']')
 
 message ::= '[' (('msg' ',' title ',' msg_content ) |
-  ( ('url' | 'urls')  ',' '[' url_spec ( ',' url_spec)* ']' ) |
+  ( 'url' ',' url ',' title ',' description  ) |
   (('row' | 'rows') ',' row_spec ',' '[' row_values (',' row_values)* ']' ) |
-  (('error' | 'errors') ',' '[' err_spec (',' err_spec)* ']' )) ']'
+  ('error' ','  '[' err_spec (',' err_spec)*  ']')) ']'
 
 title ::= string_value
 
 msg_content ::= string_value 
 
-url_spec ::= '[' url ',' title ',' desc ']'
+url ::= url_value
+
+description ::= string_value
 
 desc ::= text_value
-
-
 
 row_spec ::= '""' | '[' col_spec (',' col_spec)* ']'
 
 col_spec ::= '[' name ',' type ',' restrictions ']'
 
+err_spec ::= '[' col ',' err ']'
+
 name ::= string_value
+
+col ::= string_value
+
+err ::= string_value
 
 type ::= "text" | "int" | "fixed" | "email" | "password" | "date" | "time" | "datetime" | "bool" | "rows"
 
