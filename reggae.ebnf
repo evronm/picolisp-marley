@@ -1,0 +1,25 @@
+
+
+reggae ::= '[' message (',' message)* ']'
+
+message ::= '[' msg_type ',' msg_format ',' msg_content ']'
+
+msg_type ::= 'link' | 'links' | 'row' | 'rows' | 'err' | 'msg'
+
+msg_format ::= '""' | '[' col_spec (',' col_spec)* ']'
+
+msg_content ::= string_value | values | '[' values (',' values)* ']'
+
+col_spec ::= '[' name ',' type ',' restrictions ']'
+
+name ::= string_value
+
+type ::= "text" | "number" | "datetime" | "bool" | "rows"
+
+restrictions ::= '[' restriction (',' restriction) ']'
+
+restriction ::= "ro" | "required" | range | permitted_values | pattern
+
+
+
+
