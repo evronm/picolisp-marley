@@ -2,14 +2,14 @@
 
 reggae ::= message | ('[' message (',' message)* ']')
 
-message ::= '[' (('msg' ',' title ',' msg_content ) |
+message ::= '[' (('mesg' ',' title ',' mesg_content ) |
   ( 'url' ',' url ',' title ',' description  ) |
   (('row' | 'rows') ',' row_spec ',' '[' row_values (',' row_values)* ']' ) |
   ('error' ','  '[' err_spec (',' err_spec)*  ']')) ']'
 
 title ::= string_value
 
-msg_content ::= string_value 
+mesg_content ::= string_value 
 
 url ::= url_value
 
@@ -17,7 +17,9 @@ description ::= string_value
 
 desc ::= text_value
 
-row_spec ::= '""' | '[' col_spec (',' col_spec)* ']'
+row_spec ::= '[' (flgs ',')? col_spec (',' col_spec)* ']'
+
+flgs ::= int_value
 
 col_spec ::= '[' name ',' type ',' restrictions ']'
 
