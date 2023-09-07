@@ -1,10 +1,6 @@
 
-(load "lib/sqlite.l")
-(load "lib/proto.l")
-(load "lib/util.l")
-(load "config.l")
-(load "lib/rest.l")
-(symbols 'rst  'sqlite 'serv 'util 'pico)
+(load "lib/marley.l")
+#(symbols 'rst  'sqlite 'serv 'util 'pico)
 
 
 (setq things

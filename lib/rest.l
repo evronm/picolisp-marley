@@ -1,20 +1,6 @@
 #(load 'lib/cgi.l)
-(load 'lib/server.l)
-(symbols 'rst 'serv 'sqlite 'util 'pico)
-
-(de conf (Lst)
-  (if (= 1 (length Lst))
-    (assoc (car Lst) *DEFAULTS)
-    (assoc (car Lst) (conf (cdr Lst)))
-  )
-)
-
-(de confv (Lst)
-  (cdr (conf Lst))
-)
-
-(setq pico~*SQL (get_db (confv '(db_fn))))
-(finish (sqlite3_close *SQL))
+#(load 'lib/server.l)
+#(symbols 'rst 'serv 'util 'pico)
 
 (de authn (Un Pw)
   (prinl Un "\n" Pw)
@@ -33,16 +19,10 @@
       (if  (member (pack @ext) '(html htmx css js png gif))
         (if ( info (pack (confv '(static_dir)) Fn)) 
           (respond 200 (in (pack (confv '(static_dir)) Fn ) (till)))
-          (respond 404)
-        )
-        (respond 403)
-      )
-    )
+          (respond 404))
+        (respond 403)))
     (respond 200 ((pf (*DEFAULTS 'thing) (things (intern (car Path))) (intern Verb) ) (cdr Path)) )
-    (respond 404)
-  )
-  
-)
+    (respond 404)))
 
 (when *Dbg
 

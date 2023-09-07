@@ -1,5 +1,5 @@
 (load "lib/util.l")
-(symbols 'serv 'util 'pico)
+#(symbols 'serv 'util 'pico)
 
 (setq *Port 4200)
 (setq P (port *Port))

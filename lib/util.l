@@ -1,4 +1,4 @@
-(symbols 'util 'pico)
+#(symbols 'util 'pico)
 (load "lib/plursing.l")
 
 
