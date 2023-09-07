@@ -1,7 +1,7 @@
 (setq *DEFAULTS
   '(
     (db_fn . DB)
-    (default_path . "index.htmx")
+    (default_path . "index.html")
     (static_dir . "static/")
     (no_authn . 
       (
