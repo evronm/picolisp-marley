@@ -2,7 +2,6 @@
 (load "lib/proto.l")
 (load "lib/util.l")
 (load "lib/sqlite.l")
-(load "lib/rest.l")
 (load "lib/server.l")
 (load "config.l")
 
@@ -38,7 +37,9 @@
           (respond 200 (in (pack (confv '(static_dir)) Fn ) (till)))
           (respond 404))
         (respond 403)))
-    (respond 200 ((pf (*DEFAULTS 'thing) (things (intern (car Path))) (intern Verb) ) (cdr Path)) )
+    (if (setq thing (get things (intern (car Path))))
+      (respond 200 ((pf (*DEFAULTS 'thing) (things (intern (car Path))) (intern Verb) ) (cdr Path)) )
+      (respond 404))
     (respond 404)))
 
 (when *Dbg
