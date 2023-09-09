@@ -15,7 +15,7 @@
         (columns . (() (get_col_names ((pf Proto 'list_sql)))))
         (list_sql . (() (pack "select * from " ((pf Proto 'table)) ";")))
         (list . ((Params) (q *SQL ((pf Proto 'list_sql)))))
-        (new . (() (get_col_defs *SQL ((pf (*DEFAULTS 'thing) (Self)  'table)))))
+        (new . (() (reggae (row *NEWREC ( get_col_defs *SQL ((pf (*DEFAULTS 'thing) (Self)  'table)))))))
         (perms . 754)
         (index . id)
         (users_tbl . users)

@@ -1,6 +1,8 @@
 
+(setq *NEWREC 1 *SEARCH 2)
 (load "lib/proto.l")
 (load "lib/util.l")
+(load "lib/reggae.l")
 (load "lib/sqlite.l")
 (load "lib/server.l")
 (load "config.l")
@@ -37,8 +39,8 @@
           (respond 200 (in (pack (confv '(static_dir)) Fn ) (till)))
           (respond 404))
         (respond 403)))
-    (if (setq thing (get things (intern (car Path))))
-      (respond 200 ((pf (*DEFAULTS 'thing) (things (intern (car Path))) (intern Verb) ) (cdr Path)) )
+    (if (assoc (intern (car Path)) things) 
+      (respond 200 ((pf (*DEFAULTS 'thing) (things (intern(car Path))) (intern Verb) ) (cdr Path)) )
       (respond 404))
     (respond 404)))
 
